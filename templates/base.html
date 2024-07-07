@@ -1,6 +1,8 @@
 {% extends "bootstrap/base.html" %}
 {% block title %}Flasky{% endblock %}
 {% block navbar %}
+{{ super() }}
+{{ moment.include_moment() }}
 <div class="navbar navbar-inverse" role="navigation">
     <div class="container">
         <div class="navbar-header">
