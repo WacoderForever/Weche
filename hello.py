@@ -1,6 +1,6 @@
 import os
 from dotenv import load_dotenv
-from flask import Flask, render_template, url_for, redirect, session
+from flask import Flask, render_template, url_for, redirect, session ,flash
 from flask_bootstrap import Bootstrap
 from flask_moment import Moment
 from datetime import datetime
@@ -26,7 +26,11 @@ class NameForm(FlaskForm):
 def index():
     form = NameForm()
     if form.validate_on_submit():
+        old_name=session.get('name')
+        if old_name is not None and old_name != form.name.data:
+            flash("Seems like you have changed your name")
         session['name'] = form.name.data
+        form.name.data=''
         return redirect(url_for('index'))
     else:
         session['name']=session.get('name','')
