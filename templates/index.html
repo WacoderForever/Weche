@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block title %}Flasky{% endblock %}
 {% block page_content %}
-    <h1>Hello,{% if name|length > 1 %}{{ name }}{% else %}Stranger{% endif %}</h1>
+    <h1>Hello, {% if name and name|length > 1 %}{{ name }}{% else %}Stranger{% endif %}</h1>
     <p>Your local time is {{ moment(current_time).format('LLL')}}</p>
     <P>That was {{ moment(current_time).fromNow(refresh=True) }}</P>
     {{ wtf.quick_form(form)}}

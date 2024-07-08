@@ -1,38 +1,45 @@
-from flask import Flask,render_template
+import os
+from dotenv import load_dotenv
+from flask import Flask, render_template, url_for, redirect, session
 from flask_bootstrap import Bootstrap
 from flask_moment import Moment
 from datetime import datetime
 from flask_wtf import FlaskForm
-from wtforms import validators,PasswordField,StringField,SubmitField,BooleanField,IntegerField,DateField,DateTimeField
+from wtforms import StringField,SubmitField
+from wtforms.validators import DataRequired,Length
+from flask_wtf.csrf import CSRFProtect
 
-app=Flask(__name__)
-bootstrap=Bootstrap(app)
-moment=Moment(app)
+load_dotenv()
 
-app.config['DEBUG']=True
-app.config["WTF_CSRF_ENABLED"]=False
+app = Flask(__name__)
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY','default_secret_key')
+app.config['DEBUG'] = True
+csrf = CSRFProtect(app)
+bootstrap = Bootstrap(app)
+moment = Moment(app)
 
 class NameForm(FlaskForm):
-    name=StringField("What is your name?:",[validators.DataRequired(),validators.Length(min=2,max=20)])
-    submit=SubmitField("Submit")
+    name = StringField("What is your name?",validators=[DataRequired(),Length(min=2,max=20)])
+    submit = SubmitField("Submit")
 
-@app.route('/',methods=['GET','POST'])
-def main():
-    name=''
-    form=NameForm()
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    form = NameForm()
+    if form.validate_on_submit():
+        session['name'] = form.name.data
+        return redirect(url_for('index'))
+    else:
+        session['name']=session.get('name','')
 
-    if form.validate():
-        name=form.name.data
-
-    return render_template('index.html',current_time=datetime.utcnow(),_external=True,name=name,form=form)
+    return render_template('index.html', current_time=datetime.utcnow(), name=session.get('name'), form=form)
 
 @app.route('/user/<string:name>')
 def user(name):
-    return render_template('user.html',name=name,_external=True)
+    return render_template('user.html', name=name)
 
 @app.route('/invalid')
 def not_found():
-    return render_template('404.html',_external=True)
+    return render_template('404.html')
 
-if __name__=='__main__':
-    app.run(port=5015)
+if __name__ == '__main__':
+    app.run(port=5027)
