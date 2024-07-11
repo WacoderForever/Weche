@@ -9,6 +9,7 @@ from wtforms import StringField,SubmitField
 from wtforms.validators import DataRequired,Length
 from flask_wtf.csrf import CSRFProtect
 from flask_sqlalchemy import SQLAlchemy
+from flask_mail import Mail
 
 load_dotenv()
 
@@ -21,6 +22,7 @@ csrf = CSRFProtect(app)
 bootstrap = Bootstrap(app)
 moment = Moment(app)
 db=SQLAlchemy(app)
+mail=Mail(app)
 
 
 class Role(db.Model):
