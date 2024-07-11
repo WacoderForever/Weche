@@ -22,6 +22,7 @@ bootstrap = Bootstrap(app)
 moment = Moment(app)
 db=SQLAlchemy(app)
 
+
 class Role(db.Model):
     __tablename__='role'
     id=db.Column(db.Integer,primary_key=True)
@@ -82,4 +83,4 @@ def not_found():
     return render_template('404.html')
 
 if __name__ == '__main__':
-    app.run(port=5001)
+    app.run(port=5000)
