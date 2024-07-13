@@ -10,6 +10,7 @@ from wtforms.validators import DataRequired,Length
 from flask_wtf.csrf import CSRFProtect
 from flask_sqlalchemy import SQLAlchemy
 from flask_mail import Mail
+from flask_mail import Message
 
 load_dotenv()
 
@@ -22,13 +23,23 @@ app.config['PORT']= 587
 app.config['MAIL_USE_TLS']=True
 app.config['MAIL_USERNAME']=os.getenv('MAIL_USERNAME')
 app.config['MAIL_PASSWORD']=os.getenv('MAIL_PASSWORD')
+app.config['FLASK_MAIL_SUBJECTPREFIX']='[Weche]'
+app.config['FLASKY_MAIL_SENDER']='Flasky Admin <sethomondi7055@gmail.com>'
+app.config['FLASKY_ADMIN']=os.getenv('FLASKY_ADMIN')
 
 csrf = CSRFProtect(app)
 bootstrap = Bootstrap(app)
 moment = Moment(app)
 db=SQLAlchemy(app)
 mail=Mail(app)
+msg=Message(app)
 
+def send_mail(to,subject,template,**kwargs):
+    msg=Message(app.config['FLASKY_MAIL_SUBJECT_PREFIX']+subject,
+                sender=app.config['FLASK_MAIL_SENDER'],recipients=[to])
+    msg.body=render_template(template + '.txt',**kwargs)
+    ms.html=render_template(template + '.html',**kwargs)
+    mail.send(msg)
 
 class Role(db.Model):
     __tablename__='role'
@@ -69,6 +80,9 @@ def index():
             db.session.add(user)
             db.session.commit()
             session['known']=False
+
+            if app.config['FLASKY_ADMIN']:
+                send_mail(app.config['FLASKY_ADMIN'],'New user','mail/new_user',user=user)
         else:
             session['known']=True
 
