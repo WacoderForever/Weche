@@ -11,6 +11,7 @@ from flask_wtf.csrf import CSRFProtect
 from flask_sqlalchemy import SQLAlchemy
 from flask_mail import Mail
 from flask_mail import Message
+from threading import Thread
 
 load_dotenv()
 
@@ -34,12 +35,18 @@ db=SQLAlchemy(app)
 mail=Mail(app)
 msg=Message(app)
 
+def send_async_mail():
+    with app.app_context():
+        mail.send(msg)
+
 def send_mail(to,subject,template,**kwargs):
     msg=Message(app.config['FLASKY_MAIL_SUBJECT_PREFIX']+subject,
                 sender=app.config['FLASK_MAIL_SENDER'],recipients=[to])
     msg.body=render_template(template + '.txt',**kwargs)
     msg.html=render_template(template + '.html',**kwargs)
-    
+    thr=Thread(target=send_async_mail,args=[app,msg])
+    thr.start()
+    return thr
 
 class Role(db.Model):
     __tablename__='role'
@@ -65,7 +72,6 @@ class NameForm(FlaskForm):
 
 with app.app_context():
     db.create_all()
-    mail.send(msg)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
