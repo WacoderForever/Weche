@@ -24,7 +24,7 @@ app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USERNAME'] = os.getenv('MAIL_USERNAME')
 app.config['MAIL_PASSWORD'] = os.getenv('MAIL_PASSWORD')
 app.config['FLASK_MAIL_SUBJECT_PREFIX'] = '[Weche]'
-app.config['FLASK_MAIL_SENDER'] = 'sethomondi7055@gmail.com'
+app.config['FLASK_MAIL_SENDER'] = 'Flasky admin <flasky@example.com>'
 app.config['FLASKY_ADMIN'] = os.getenv('FLASKY_ADMIN')
 
 csrf = CSRFProtect(app)
