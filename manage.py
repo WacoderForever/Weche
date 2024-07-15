@@ -3,19 +3,24 @@
 import os
 from app import create_app, db
 from app.models import User, Role
-from flask_migrate import Migrate
-from flask_script import Manager, Shell
+from flask.cli import FlaskGroup
+from dotenv import load_dotenv
 
-app = create_app(os.getenv('FLASK_CONFIG') or 'default')
-migrate = Migrate(app, db)
-manager = Manager(app)
+load_dotenv()
 
+app = create_app(os.getenv('FLASK_CONFIG','default'))
+cli=FlaskGroup(create_app=lambda: app)
 
+@app.shell_context_processor
 def make_shell_context():
-    return dict(app=app, db=db, User=User, Role=Role)
-    
-manager.add_command("shell", Shell(make_context=make_shell_context))
-manager.add_command('db', MigrateCommand)
+    with app.app_context():
+        return {
+            'app': app,
+            'db': db,
+            'User': User,
+            'Role': Role
+        }
 
 if __name__ == '__main__':
-    manager.run()
+    cli()
+
