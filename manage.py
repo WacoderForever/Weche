@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-app = create_app(os.getenv('FLASK_CONFIG','default'))
+app = create_app(os.getenv('FLASK_CONFIG') or 'default')
 cli=FlaskGroup(create_app=lambda: app)
 
 @app.shell_context_processor
@@ -22,5 +22,5 @@ def make_shell_context():
         }
 
 if __name__ == '__main__':
-    cli.main(['run', '--host', '0.0.0.0', '--port', '8080']) 
+    cli.main(['run', '--host', '0.0.0.0', '--port', '8082']) 
 
