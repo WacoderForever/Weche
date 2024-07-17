@@ -18,6 +18,10 @@ class User(db.Model):
     role_id = db.Column(db.Integer, db.ForeignKey('role.id'))
     password_hash=db.Column(db.Strng(128))
 
+    @property
+    def password(self):
+        raise AttributeError('password is not a readable attribute')
+        
     @password.setter
     def password(self,password):
         self.password_hash=generate_password_hash(password,method="sha265")
