@@ -1,5 +1,6 @@
 from datetime import datetime
 from . import db
+from werkzeug.security import generate_password_hash,check_password_harsh
 
 class Role(db.Model):
     __tablename__ = 'role'
