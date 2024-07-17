@@ -20,8 +20,10 @@ class User(db.Model):
 
     @password.setter
     def password(self,password):
-        password_hash=generate_password_hash(password,method="sha265")
+        self.password_hash=generate_password_hash(password,method="sha265")
     
+    def verify_password(self,password):
+        return check_password_hash(self.password_hash, password)
 
     def __repr__(self):
         return '<User %r>' % self.username
