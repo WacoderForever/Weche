@@ -11,6 +11,13 @@ load_dotenv()
 app = create_app(os.getenv('FLASK_CONFIG') or 'default')
 cli=FlaskGroup(create_app=lambda: app)
 
+@app.command
+def test():
+    "Run unit tests"
+    import unittest
+    tests=unittest.TestLoader().discover('tests')
+    unittest.TextTestRunner(verbosity=2).run(tests)
+
 @app.shell_context_processor
 def make_shell_context():
     with app.app_context():
