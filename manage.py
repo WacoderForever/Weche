@@ -19,6 +19,11 @@ def test():
     tests=unittest.TestLoader().discover('tests')
     unittest.TextTestRunner(verbosity=2).run(tests)
 
+@cli.command("init_db")
+def initdb():
+    with app.app_context():
+        db.create_all()
+
 @app.shell_context_processor
 def make_shell_context():
     with app.app_context():
@@ -32,5 +37,5 @@ def make_shell_context():
 if __name__ == '__main__':
     os.environ['FLASK_ENV'] = os.getenv('FLASK_ENV', 'development')
     os.environ['FLASK_TEST'] = os.getenv('FLASK_TEST', '1')
-    cli()
+    cli.main(["run","--host=0.0.0.0","--port=8043"])
 
