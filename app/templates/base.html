@@ -1,9 +1,10 @@
 {% extends "bootstrap/base.html" %}
 {% import "bootstrap/wtf.html" as wtf%}
-<head>
-    <link rel="icon" href="{{ url_for('static',filename='images/favicon.ico') }}">
-    {% block title %}{% endblock %}
-</head>
+{% block title %}Weche{% endblock %}
+{% block head %}
+{{ super() }}
+    <link rel="icon" href="{{ url_for('static',filename='images/favicon.ico')}}">
+{% endblock %}
 {% block navbar %}
 {{ super() }}
 {{ moment.include_moment() }}
