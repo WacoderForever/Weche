@@ -17,7 +17,7 @@ def test():
     os.environ['FLASK_CONFIG'] = 'testing'
     import unittest
     tests=unittest.TestLoader().discover('tests')
-    unittest.TextTestRunner(verbosity=3).run(tests)
+    unittest.TextTestRunner(verbosity=2).run(tests)
 
 @app.shell_context_processor
 def make_shell_context():
@@ -32,5 +32,5 @@ def make_shell_context():
 if __name__ == '__main__':
     os.environ['FLASK_ENV'] = os.getenv('FLASK_ENV', 'development')
     os.environ['FLASK_TEST'] = os.getenv('FLASK_TEST', '1')
-    cli()
+    cli.main(["run","--host=0.0.0.0","--port=8040"])
 
