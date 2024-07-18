@@ -1,6 +1,6 @@
 {% extends "bootstrap/base.html" %}
 {% import "bootstrap/wtf.html" as wtf%}
-<link rel="icon" href="{{ url_for('static' filename='/images/favico.ico') }}">
+<link rel="icon" href="{{ url_for('static',filename='/images/favico.ico') }}">
 {% block title %}Flasky{% endblock %}
 {% block navbar %}
 {{ super() }}
