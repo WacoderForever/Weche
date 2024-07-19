@@ -8,6 +8,6 @@ class NameForm(FlaskForm):
 
 class LoginForm(FlaskForm):
     email=StringField("Email",validators=[DataRequired(), Length(min=1,max=64),Email()])
-    password=StringField("Password",validators=[DataRequired(),Length(min=8,max=40)])
+    password=PasswordField("Password",validators=[DataRequired(),Length(min=8,max=40)])
     remember_me=BooleanField()
     submit=SubmitField("Login")
