@@ -1,0 +1,10 @@
+.navbar {
+    background-color: white;
+    border: none; /* removes the border for clean look */
+}
+.navbar-brand img {
+    height: 40px; 
+}
+.navbar-nav > li > a {
+    color: black; 
+}

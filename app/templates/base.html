@@ -4,6 +4,7 @@
 {% block head %}
 {{ super() }}
     <link rel="icon" href="{{ url_for('static',filename='images/favicon.ico')}}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/main.css')}}">
 {% endblock %}
 {% block navbar %}
 {{ super() }}
@@ -19,7 +20,7 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="/">
-                <img src="{{ url_for('static',filename='images/favicon.ico') }}" style="height: 40px;" alt="Weche">
+                <img src="{{ url_for('static',filename='images/favicon.ico') }}" alt="Weche">
             </a>
         </div>
         <div class="navbar-collapse collapse">
