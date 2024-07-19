@@ -1,11 +1,12 @@
 
 .navbar {
     background-color: #f0f0f0;
-    border: none; /* removes the border for clean look */
+    border: none; 
 }
 .navbar-brand img {
     height: 40px; 
     width: 40px;
+    margin-top: -10px;
 }
 .navbar-nav > li > a {
     color: black; 
