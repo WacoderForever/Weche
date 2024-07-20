@@ -39,6 +39,11 @@
         {{ message }}
     </div>
     {% endfor %}
+    <ul class="nav navbar-nav navbar-right">
+        {% if not current_user.is_authenticated %}
+        <li><a href="{{ url_for('auth.login') }}">Sign In</a></li>
+        {% endif %}
+    </ul>
     {% block page_content %}{% endblock %}
 </div>
 {% endblock %}
