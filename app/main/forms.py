@@ -13,7 +13,3 @@ class LoginForm(FlaskForm):
     password=PasswordField("Password",validators=[DataRequired(),Length(min=8,max=40)])
     remember_me=BooleanField()
     submit=SubmitField("Login")
-
-    def validate_email(self,field):
-        if not User.query.filter_by(email=field.data).first():
-            raise ValidationError("Account does not exist.")
