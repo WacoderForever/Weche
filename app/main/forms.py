@@ -16,4 +16,4 @@ class LoginForm(FlaskForm):
 
     def validate_email(self,field):
         if not User.query.filter_by(email=field.data).first():
-            raise ValidationError("Account does not exist yet. Create a new account")
+            raise ValidationError("Account does not exist.")
