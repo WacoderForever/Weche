@@ -28,6 +28,30 @@ class User(UserMixin,db.Model):
     password_hash=db.Column(db.String(128))
     confirmed=db.Column(db.Boolean,default=False)
 
+    def generate_confirmation_token(self):
+        payload={'confirm':self.id,
+                'exp':datetime.datetime.now()+datetime.timedelta(minutes=4)}
+        key=current_app.config['SECRET_KEY']
+        algorithm='HS256'
+
+        token=jwt.encode(payload=payload,key=key,algorithms=algorithm)
+        return token
+
+    def confirm(self,token):
+        algorithm='HS256'
+        key=current_app.config['SECRET_KEY']
+
+        try:
+            data=jwt.decode(token,key=key,leeway=datetime.timedelta(seconds=10),algorithms=algorithm)
+        except:
+            return False
+
+        if data.get('confirm') != self.id:
+            return False
+        self.confirm=True
+        db.session.add(self)
+        return True
+
     @property
     def password(self):
         raise AttributeError('password is not a readable attribute')
