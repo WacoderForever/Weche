@@ -30,11 +30,11 @@ class User(UserMixin,db.Model):
 
     def generate_confirmation_token(self):
         payload={'confirm':self.id,
-                'exp':datetime.datetime.now()+timedelta(minutes=4)}
+                'exp':datetime.now()+timedelta(minutes=4)}
         key=current_app.config['SECRET_KEY']
         algorithm='HS256'
 
-        token=jwt.encode(payload=payload,key=key,algorithms=algorithm)
+        token=jwt.encode(payload=payload,key=key,algorithm=algorithm)
         return token
 
     def confirm(self,token):
