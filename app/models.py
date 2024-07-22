@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime,timedelta
 from . import db
 from werkzeug.security import generate_password_hash,check_password_hash
 from flask_login import UserMixin
@@ -30,7 +30,7 @@ class User(UserMixin,db.Model):
 
     def generate_confirmation_token(self):
         payload={'confirm':self.id,
-                'exp':datetime.datetime.now()+datetime.timedelta(minutes=4)}
+                'exp':datetime.datetime.now()+timedelta(minutes=4)}
         key=current_app.config['SECRET_KEY']
         algorithm='HS256'
 
