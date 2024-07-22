@@ -5,9 +5,16 @@ basedir=os.path.abspath(os.path.dirname(__file__))
 class Config():
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'default-security-key'
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
-    FLASKY_MAIL_SUBJECT_PREFIX = '[Weche]'
-    FLASKY_MAIL_SENDER = 'Weche Admin <weche@example.com>'
-    FLASKY_ADMIN = os.environ.get('WECHE_ADMIN')
+    WECHE_MAIL_SUBJECT_PREFIX = '[Weche]'
+    WECHE_MAIL_SENDER = 'Weche Admin <weche@example.com>'
+    WECHE_ADMIN = os.environ.get('WECHE_ADMIN')
+    WECHE_MAIL_SERVER='smtp.gmail.com'
+    WECHE_MAIL_PORT=587
+    WECHE_MAIL_USERNAME = os.environ.get('WECHE_MAIL_USERNAME')
+    WECHE_MAIL_SERVER = os.environ.get('WECHE_MAIL_PASSWORD')
+    MAIL_USE_TLS = True  
+    MAIL_USE_SSL= False
+
 
     @staticmethod
     def init_app(app):
@@ -18,8 +25,8 @@ class DevelopmentConfig(Config):
     MAIL_SERVER = 'smtp.googlemail.com'
     MAIL_PORT = 587
     MAIL_USE_TLS = True
-    MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
-    MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
+    MAIL_USERNAME = os.environ.get('WECHE_MAIL_USERNAME')
+    MAIL_PASSWORD = os.environ.get('WECHE_MAIL_PASSWORD')
     SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL') or \
                             'sqlite:///' + os.path.join(basedir, 'data-dev.sqlite')
 
