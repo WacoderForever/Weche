@@ -1,4 +1,4 @@
-from flask import render_template,redirect,url_for,flash,request
+from flask import render_template,redirect,url_for,flash,request,current_user
 from flask_login import login_user,logout_user,login_required
 from . import auth
 from app.main.forms import LoginForm
@@ -38,3 +38,15 @@ def register():
         return redirect(url_for('main.index'))
 
     return render_template('auth/register.html',form=form)
+
+@auth.route('/confirm/<token>')
+@login_required
+def confirm(token):
+    if current_user.confirmed:
+        return redirect(url_for('main.index'))
+    if current_user.confirm(token):
+        flash("You have confirmed your account. Thanks")
+    else:
+        flash("The link is invalid or expired")
+    
+    return redirect(url_for('main.index'))
