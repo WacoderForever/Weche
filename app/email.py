@@ -5,7 +5,7 @@ from flask import current_app,render_template
 
 def send_async_email(app,message):
     with app.app_context():
-        mail.send(msg)
+        mail.send(message)
 
 def send_email(to,subject,template,**kwargs):
     app=current_app._get_current_object()
