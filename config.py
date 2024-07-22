@@ -6,12 +6,12 @@ class Config():
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'default-security-key'
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
     WECHE_MAIL_SUBJECT_PREFIX = '[Weche]'
-    WECHE_MAIL_SENDER = os.environ.get('WECHE_MAIL_USERNAME')
+    WECHE_MAIL_SENDER = os.environ.get('MAIL_USERNAME')
     WECHE_ADMIN = os.environ.get('WECHE_ADMIN')
     WECHE_MAIL_SERVER='smtp.gmail.com'
     WECHE_MAIL_PORT=587
-    WECHE_MAIL_USERNAME = os.environ.get('WECHE_MAIL_USERNAME')
-    WECHE_MAIL_SERVER = os.environ.get('WECHE_MAIL_PASSWORD')
+    WECHE_MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
+    WECHE_MAIL_SERVER = os.environ.get('MAIL_PASSWORD')
     MAIL_USE_TLS = True  
     MAIL_USE_SSL= False
 
