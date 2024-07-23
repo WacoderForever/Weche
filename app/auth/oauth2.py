@@ -4,7 +4,7 @@ from google.oauth2 import service_account
 from google.auth.transport.requests import Request  
   
 creds = service_account.Credentials.from_service_account_file(
-    'service_account_key.json',
+    os.environ['GOOGLE_APPLICATION_CREDENTIALS'],
     scopes=['https://mail.google.com/']  
 )  
   
