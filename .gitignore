@@ -1,0 +1,31 @@
+# Python compiled files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Environment variables file
+.env
+
+# Virtual environment directory
+venv/
+
+# IDE/editor settings
+.idea/
+.vscode/
+
+# System files
+.DS_Store
+
+# Logs
+*.log
+
+# Flask instance folder
+instance/
+
+# Static and media files
+staticfiles/
+media/
+
+# Ignore the service account key file
+service_account_key.json
