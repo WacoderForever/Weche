@@ -11,7 +11,7 @@ class Config():
     WECHE_MAIL_SERVER='smtp.gmail.com'
     WECHE_MAIL_PORT=587
     WECHE_MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
-    WECHE_MAIL_SERVER = os.environ.get('MAIL_PASSWORD')
+    WECHE_MAIL_PASSWORD = os.environ.get('APP_PASSWORD')
     MAIL_USE_TLS = True  
     MAIL_USE_SSL= False
 
