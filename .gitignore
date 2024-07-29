@@ -27,5 +27,5 @@ instance/
 staticfiles/
 media/
 
-# Ignore the service account key file
-service_account_key.json
+# Ignore the service account
+weche_client_server.json
