@@ -3,6 +3,7 @@ from flask_mail import Message
 from flask import current_app, render_template
 from .auth.oauth2 import get_authenticated_client
 from googleapiclient.errors import HttpError
+from googleapiclient.discovery import build
 import base64
 
 def send_async_email(app, message):
