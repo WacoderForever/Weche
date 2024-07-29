@@ -29,3 +29,4 @@ media/
 
 # Ignore the service account
 weche_client_server.json
+service_account.json
