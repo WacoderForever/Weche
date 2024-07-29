@@ -15,4 +15,4 @@ def get_authenticated_client():
         creds.refresh(Request())
     except exceptions.RefreshError:
         raise Exception("Unable to refresh credentials")
-    return build('gmail', 'v1', credentials=creds)
+    return creds
