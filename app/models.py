@@ -64,7 +64,15 @@ class User(UserMixin,db.Model):
     
     def verify_password(self,password):
         return check_password_hash(self.password_hash, password)
-
+    
+    def __init__(self,**kwargs):
+        super(User,self).__init__(**kwargs)
+        if self.role is None:
+            if self.email==current_app.config['WECHE_ADMIN']:
+                self.role=Role.query.filter_by(permissions=0xff).first()
+            if self.role is None:
+                self.role=Role.query.filter_by(default=True).first()
+                
     def __repr__(self):
         return '<User %r>' % self.username
 
