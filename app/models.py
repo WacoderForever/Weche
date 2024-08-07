@@ -35,6 +35,10 @@ class User(UserMixin,db.Model):
     password_hash=db.Column(db.String(128))
     confirmed=db.Column(db.Boolean,default=False)
 
+    def ping(self):
+        self.last_seen=datetime.utcnow()
+        db.session.add(self)
+
     def generate_confirmation_token(self):
         payload={'confirm':self.id,
                 'exp':datetime.now()+timedelta(minutes=4)}
