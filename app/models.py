@@ -26,6 +26,11 @@ class User(UserMixin,db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email=db.Column(db.String,unique=True,index=True)
     username = db.Column(db.String(64), unique=True, index=True)
+    name = db.Column(db.String(64))
+    location = db.Column(db.String(64))
+    about_me = db.Column(db.Text()) #Text() doesnt have a limit
+    member_since = db.Column(db.DateTime(), default=datetime.utcnow)
+    last_seen = db.Column(db.DateTime(), default=datetime.utcnow)
     role_id = db.Column(db.Integer, db.ForeignKey('role.id'))
     password_hash=db.Column(db.String(128))
     confirmed=db.Column(db.Boolean,default=False)
